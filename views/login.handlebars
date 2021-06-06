@@ -1,17 +1,27 @@
-<h2>Login</h2>
-
-<form class="form login-form">
-  <div class="form-group">
-    <label for="email-login">email:</label>
-    <input class="form-input" type="text" id="email-login" />
-  </div>
-  <div class="form-group">
-    <label for="password-login">password:</label>
-    <input class="form-input" type="password" id="password-login" />
-  </div>
-  <div class="form-group">
-    <button class="btn btn-primary" type="submit">login</button>
-  </div>
-</form>
-
+<div class="card">
+    {{#if isLoginAction}}
+    <div class="card-header">Login</div>
+    {{else}}
+    <div class="card-header">Sign Up</div>
+    {{/if}}
+    <div class="card-body p-5">
+        <form class="form login-form">
+            <div class="form-group">
+                <input type="email" class="form-control" id="email-login" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password-login" placeholder="Password">
+            </div>
+            <div class="form-group">
+                {{#if isLoginAction}}
+                    <button class="btn btn-primary btnLogin" type="submit">Login</button>
+                    <span>or <a href="/signup">Sign up Here</a></span>
+                {{else}}
+                    <button class="btn btn-primary btnSignUp" type="submit">Sign Up</button>
+                    <span>or <a href="/login">Login Here</a></span>
+                {{/if}}
+            </div>
+        </form>
+    </div>
+</div>
 <script src="/js/login.js"></script>
