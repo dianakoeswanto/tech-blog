@@ -8,12 +8,13 @@ router.post('/', async (req, res) => {
     const user = await User.create(req.body);
 
     req.session.save(() => {
-      req.session.user_id = user.id;
-      req.session.logged_in = true;
+      req.session.userId = user.id;
+      req.session.loggedIn = true;
 
       res.status(200).json(user);
     });
   } catch (err) {
+      console.log(err);
     res.status(400).json(err);
   }
 });
@@ -45,20 +46,21 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.save(() => {
-      req.session.user_id = user.id;
-      req.session.logged_in = true;
+      req.session.userId = user.id;
+      req.session.loggedIn = true;
       
       res.json({ user, message: 'You are now logged in!' });
     });
 
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 });
 
 // Logout - if user is signed in, destroy session. Else, throw 404?
 router.post('/logout', (req, res) => {
-  if (req.session.logged_in) {
+  if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
     });

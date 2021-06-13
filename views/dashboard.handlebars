@@ -1,0 +1,11 @@
+{{#each posts as |post|}}
+<div class="card">
+    <div class="card-header"><a href="/edit/{{post.id}}">{{post.title}}</a></div>
+    <div class="card-body p-5">
+        {{post.content}}
+    </div>
+</div>
+{{/each}}
+<div>
+    <a class="btn btn-primary" href="/new_post">Add New Post</a>
+</div>

@@ -1,25 +1,11 @@
 <div class="card">
-    {{#if isLoginAction}}
-    <div class="card-header">Login</div>
-    {{else}}
-    <div class="card-header">Sign Up</div>
-    {{/if}}
-    <div class="card-body p-5">
+        <div class="card-header">Login</div>
+        <div class="card-body p-5">
         <form class="form login-form">
+            {{> registration-fields }}
             <div class="form-group">
-                <input type="email" class="form-control" id="email-login" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" id="password-login" placeholder="Password">
-            </div>
-            <div class="form-group">
-                {{#if isLoginAction}}
-                    <button class="btn btn-primary btnLogin" type="submit">Login</button>
-                    <span>or <a href="/signup">Sign up Here</a></span>
-                {{else}}
-                    <button class="btn btn-primary btnSignUp" type="submit">Sign Up</button>
-                    <span>or <a href="/login">Login Here</a></span>
-                {{/if}}
+                <button class="btn btn-primary btnLogin" id="btnLogin" type="submit">Login</button>
+                <span>or <a href="/signup">Sign up Here</a></span>
             </div>
         </form>
     </div>

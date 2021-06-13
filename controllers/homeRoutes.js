@@ -1,19 +1,13 @@
 const router = require('express').Router();
-const { Post, User } = require('../models');
-// const withAuth = require('../utils/auth');
+const Post = require('../models/Post');
+const User = require('../models/User');
+const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   console.log("GOT HIT");
   try {
     // Get all projects and JOIN with user data
-    const postData = await Post.findAll({
-      // include: [
-      //   {
-      //     model: User,
-      //     attributes: ['name'],
-      //   },
-      // ],
-    });
+    const postData = await Post.findAll();
 
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
@@ -21,7 +15,7 @@ router.get('/', async (req, res) => {
     // Pass serialized data and session flag into template
     res.render('homepage', { 
       posts,
-      logged_in: req.session.logged_in 
+      loggedIn: req.session.loggedIn 
     });
   } catch (err) {
     console.log(err);
@@ -29,14 +23,45 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/dashboard', withAuth, async (req,res) => {
+  try{
+    const postsData = await Post.findAll(
+    {
+      where: { user_id: req.session.userId }        
+    });
+
+    const posts = postsData.map((post) => post.get({plain: true}));
+    res.render('dashboard', {
+      posts,
+      loggedIn: req.session.loggedIn
+    })
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+router.get('/new_post', withAuth, async (req,res) => {
+  console.log('/new');
+
+  try{
+    res.render('new', {
+      loggedIn: req.session.loggedIn
+    })
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
+
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
-    res.redirect('/dashboard');
+  if (req.session.loggedIn) {
+    res.redirect('/');
     return;
   }
 
-  res.render('login', {isLoginAction: true});
+  res.render('login');
 });
 
 
@@ -46,7 +71,7 @@ router.get('/signup', (req, res) => {
     return;
   }
 
-  res.render('login', {isLoginAction: false});
+  res.render('signup');
 });
 
 module.exports = router;
