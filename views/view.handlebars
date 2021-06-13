@@ -2,17 +2,35 @@
     <div class="card-header">{{post.title}}</div>
     <div class="card-body p-5">
         <input type="hidden" id="postId" value="{{post.id}}"/>
-        <div>{{post.content}}</div>
+        {{post.content}}
+        <footer class="blockquote-footer">{{post.user.email}} | {{format_date post.createdAt}}</footer>
     </div>
 </div>
 
+{{#if comments.length}}
 <div class="card">
-    <div class="card-header">Comments</div>
+  <div class="card-header">
+    Comments
+  </div>
+  <ul class="list-group list-group-flush">
+      {{#each comments as |comment|}}
+        <li class="list-group-item pl-5 pr-5">
+            {{comment.comment}}
+            <footer class="blockquote-footer">{{comment.user.email}} | {{format_date comment.created_at}}</footer>
+        </li>
+      {{/each}}
+  </ul>
+</div>
+{{/if}}
+
+
+<div class="card">
+    <div class="card-header">Add Comment</div>
     <div class="card-body p-5">
         <form>
             {{#if loggedIn}}
                 <div class="form-group">
-                    <textarea rows="2" class="form-control" id="comment" required placeholder="Your comment"></textarea>
+                    <textarea rows="2" class="form-control mb-2" id="comment" required placeholder="Your comment"></textarea>
                     <button type="button" class="btn btn-primary" id="btnAddComment">Add Comment</button>
                     <a class="btn btn-secondary" id="btnCancel" href="/">Cancel</a>
                 </div>

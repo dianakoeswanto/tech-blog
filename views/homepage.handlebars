@@ -4,6 +4,7 @@
     <div class="card-header"><a href="/view/{{post.id}}">{{post.title}}</a></div>
     <div class="card-body p-5">
         {{post.content}}
+        <footer class="blockquote-footer">{{post.user.email}} | {{format_date post.createdAt}}</footer>
     </div>
 </div>
 {{/each}}
