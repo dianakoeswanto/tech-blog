@@ -46,6 +46,24 @@ router.get('/new_post', withAuth, async (req,res) => {
 
   try{
     res.render('new', {
+      post: {title: '', content: ''},
+      loggedIn: req.session.loggedIn
+    })
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
+
+router.get('/edit/:id', withAuth, async (req,res) => {
+
+  try{
+    const postData = await Post.findByPk(req.params.id);
+    const post = postData.get({plain: true});
+
+    console.log(post);
+    res.render('edit', {
+      post,
       loggedIn: req.session.loggedIn
     })
   } catch (err) {
