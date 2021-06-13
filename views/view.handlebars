@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="card-header">{{post.title}}</div>
+    <div class="card-body p-5">
+        <input type="hidden" id="postId" value="{{post.id}}"/>
+        <div>{{post.content}}</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Comments</div>
+    <div class="card-body p-5">
+        <form>
+            {{#if loggedIn}}
+                <div class="form-group">
+                    <textarea rows="2" class="form-control" id="comment" required placeholder="Your comment"></textarea>
+                    <button type="button" class="btn btn-primary" id="btnAddComment">Add Comment</button>
+                    <a class="btn btn-secondary" id="btnCancel" href="/">Cancel</a>
+                </div>
+            </div>
+            {{else}}
+                <div>Please <a href="/login">login</a> to make a comment</div>
+            {{/if}}
+        </form>
+    </div>
+</div>
+
+<script src="/js/comment.js"></script>

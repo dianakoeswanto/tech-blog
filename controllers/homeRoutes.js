@@ -4,10 +4,16 @@ const User = require('../models/User');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
-  console.log("GOT HIT");
   try {
     // Get all projects and JOIN with user data
-    const postData = await Post.findAll();
+    const postData = await Post.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['email'],
+        },
+      ],
+    });
 
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
@@ -56,13 +62,27 @@ router.get('/new_post', withAuth, async (req,res) => {
 })
 
 router.get('/edit/:id', withAuth, async (req,res) => {
-
   try{
     const postData = await Post.findByPk(req.params.id);
     const post = postData.get({plain: true});
 
     console.log(post);
     res.render('edit', {
+      post,
+      loggedIn: req.session.loggedIn
+    })
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
+
+router.get('/view/:id', withAuth, async (req,res) => {
+  try{
+    const postData = await Post.findByPk(req.params.id);
+    const post = postData.get({plain: true});
+
+    res.render('view', {
       post,
       loggedIn: req.session.loggedIn
     })
