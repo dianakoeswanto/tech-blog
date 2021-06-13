@@ -2,6 +2,7 @@
     <div class="card-header">Edit Post</div>
     <div class="card-body p-5">
         <form class="form form-edit">
+            <input type="hidden" id="postId" value="{{post.id}}"/>
             {{> post-details}}
             <button type="button" style="width: 100%" class="btn btn-danger" id="btnDelete">Delete</button>
             <a class="btn btn-secondary" style="width: 100%" id="btnCancel" href="/dashboard">Cancel</a></button>
