@@ -14,7 +14,7 @@ const editPostHandler = async (event) => {
         if (response.ok) {
             document.location.replace('/dashboard');
         } else {
-            alert(response.statusText);
+            alert(response.text());
         };
     } else {
         alert("Title & Content are required");
@@ -35,7 +35,7 @@ const deletePostHandler = async (event) => {
     if (response.ok) {
         document.location.replace('/dashboard');
     } else {
-        alert(response.statusText);
+        alert(response.text());
     };
 }
 

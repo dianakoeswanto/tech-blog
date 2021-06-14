@@ -1,6 +1,5 @@
 
 const logoutHandler = async () => {
-    console.log("HERE");
     const response = await fetch('/api/users/logout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -9,7 +8,7 @@ const logoutHandler = async () => {
     if (response.ok) {
       document.location.replace('/');
     } else {
-      alert(response.statusText);
+      alert(response.text());
     };
   }
   

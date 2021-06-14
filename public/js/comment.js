@@ -11,7 +11,7 @@ const addCommentHandler = async (event) => {
         });
 
         if (!response.ok) {
-            alert(response.statusText);
+            alert(response.text());
         } else {
             document.location.reload();
         }

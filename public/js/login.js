@@ -15,7 +15,7 @@ const loginFormHandler = async (event) => {
         if (response.ok) {
           document.location.reload();
         } else {
-          alert(response.statusText);
+          alert(response.text());
         }
       }
 }

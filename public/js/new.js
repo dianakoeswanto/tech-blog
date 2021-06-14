@@ -3,8 +3,6 @@ const addPostHandler = async (event) => {
     const title = document.getElementById('title').value.trim();
     const content = document.getElementById('content').value.trim();
 
-    alert(title);
-    alert(content);
     if(title && content) {
         const response = await fetch('/api/posts', {
             method: 'POST',
@@ -15,7 +13,7 @@ const addPostHandler = async (event) => {
         if (response.ok) {
             document.location.replace('/');
         } else {
-            alert(response.statusText);
+            alert(response.text());
         };
     } else {
         alert("Title & Content are required");
